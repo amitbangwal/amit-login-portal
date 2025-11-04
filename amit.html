@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amit Secure Login</title>
+  <meta name="description" content="Personalized login page by Amit Bangwal" />
+  <style>
+    :root{
+      --bg1: #0f172a;
+      --bg2: #0b2545;
+      --card: rgba(255,255,255,0.04);
+      --glass: rgba(255,255,255,0.06);
+      --accent: #6C8CFF;
+      --muted: rgba(255,255,255,0.7);
+      --danger: #ff6b6b;
+      --success: #4ade80;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+
+    html,body{height:100%;}
+    body{
+      margin:0;
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(108,140,255,0.12), transparent),
+                  linear-gradient(180deg,var(--bg1), var(--bg2));
+      color:#fff;
+    }
+
+    .container{
+      width:min(920px, 94%);
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:center;
+    }
+
+    .hero{padding:36px 40px;}
+    .logo{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .logo .mark{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent), #63e0ff);display:grid;place-items:center;color:#04214e;font-weight:700}
+    h1{font-size:28px;margin:0 0 8px}
+    p.lead{color:var(--muted);margin:0 0 22px;line-height:1.5}
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius:14px;
+      padding:26px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.04);
+      backdrop-filter: blur(6px) saturate(120%);
+    }
+
+    form{display:flex;flex-direction:column;gap:12px}
+    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+    .field{display:flex;flex-direction:column;}
+    input[type="email"], input[type="password"]{
+      padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit;font-size:15px;outline:none;transition:box-shadow .18s,border-color .18s;
+    }
+    input:focus{box-shadow:0 6px 20px rgba(108,140,255,0.12);border-color:var(--accent)}
+
+    .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .btn{
+      appearance:none;border:0;padding:10px 14px;border-radius:10px;background:var(--accent);color:#04214e;font-weight:600;cursor:pointer;box-shadow:0 8px 18px rgba(108,140,255,0.12);transition:transform .12s,filter .12s;}
+    .btn:active{transform:translateY(1px)}
+
+    .outline{
+      background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:9px 12px;border-radius:10px;cursor:pointer
+    }
+
+    .muted{color:var(--muted);font-size:13px}
+
+    .toggle-pass{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:transparent;border:0;padding:6px;border-radius:8px;cursor:pointer;color:var(--muted)}
+    .remember{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
+
+    .socials{display:flex;gap:10px;margin-top:8px}
+    .socials button{flex:1;padding:9px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted);cursor:pointer}
+
+    .errors{color:var(--danger);font-size:13px;margin-top:4px}
+    .success{color:var(--success);font-size:13px;margin-top:4px}
+
+    @media (max-width:920px){.container{grid-template-columns:1fr;}.hero{order:2}}
+    @media (max-width:480px){h1{font-size:22px}.card{padding:18px}}
+
+    .foot{margin-top:12px;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+  </style>
+</head>
+<body>
+  <main class="container" role="main">
+    <section class="hero" aria-hidden="false">
+      <div class="logo">
+        <div class="mark">AB</div>
+        <div>
+          <div style="font-weight:700">Amit Secure Login</div>
+          <div style="font-size:13px;color:var(--muted)">Personal project by Amit Bangwal</div>
+        </div>
+      </div>
+
+      <h1>Welcome to Amit’s Secure Portal 👋</h1>
+      <p class="lead">Login to explore Amit's personalized dashboard. Your data is encrypted and safe with advanced security.</p>
+    </section>
+
+    <aside class="card" aria-label="Login form container">
+      <form id="loginForm" novalidate>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <strong>Sign in</strong>
+          <small class="muted">New? <a href="#" style="color:inherit;opacity:0.9">Create account</a></small>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@domain.com" required aria-required="true">
+        </div>
+
+        <div class="field" style="position:relative;">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="Your strong password" required aria-required="true" minlength="6">
+          <button type="button" class="toggle-pass" id="togglePass" aria-label="Show password">👁</button>
+        </div>
+
+        <div class="row">
+          <label class="remember"><input id="remember" type="checkbox"> Remember me</label>
+          <a href="#" class="muted" style="text-decoration:none">Forgot?</a>
+        </div>
+
+        <button class="btn" type="submit">Sign in</button>
+
+        <div class="foot">
+          <div class="muted">or continue with</div>
+        </div>
+
+        <div class="socials">
+          <button type="button">G</button>
+          <button type="button">GH</button>
+          <button type="button"></button>
+        </div>
+
+        <div id="message" role="status" aria-live="polite"></div>
+      </form>
+    </aside>
+  </main>
+
+  <footer style="position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.7); font-size: 14px; letter-spacing: 0.3px; font-family: 'Inter', sans-serif;">
+    ✨ Created by <strong style="color:#6C8CFF;">Amit Bangwal</strong>
+  </footer>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const email = document.getElementById('email');
+    const pass = document.getElementById('password');
+    const msg = document.getElementById('message');
+    const toggle = document.getElementById('togglePass');
+
+    toggle.addEventListener('click', ()=>{
+      if(pass.type === 'password'){
+        pass.type = 'text';
+        toggle.textContent = '🙈';
+      } else {
+        pass.type = 'password';
+        toggle.textContent = '👁';
+      }
+    });
+
+    function showError(text){msg.innerHTML = <div class='errors'>${text}</div>;}
+    function showSuccess(text){msg.innerHTML = <div class='success'>${text}</div>;}
+
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      msg.innerHTML = '';
+      const emailVal = email.value.trim();
+      const passVal = pass.value;
+
+      if(!emailVal){ showError('Please enter your email'); email.focus(); return; }
+      const re = /^\S+@\S+\.\S+$/;
+      if(!re.test(emailVal)){ showError('Please enter a valid email'); email.focus(); return; }
+      if(passVal.length < 6){ showError('Password must be at least 6 characters'); pass.focus(); return; }
+
+      showSuccess('Signing in...');
+      setTimeout(()=>{showSuccess('Signed in successfully — redirecting...');}, 900);
+    });
+  </script>
+</body>
+</html>
